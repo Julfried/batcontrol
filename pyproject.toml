@@ -24,3 +24,27 @@ where = ["./src"]
 
 [tool.setuptools.dynamic]
 version = {attr = "batcontrol.__pkginfo__.__version__"}
+
+# Bump Version
+[tool.bumpversion]
+current_version = "0.5.0dev"
+parse = "(?P<major>\\d+)\\.(?P<minor>\\d+)\\.(?P<patch>\\d+)(?P<release>dev)?"
+serialize = [
+    "{major}.{minor}.{patch}{release}",
+    "{major}.{minor}.{patch}"
+]
+ignore_current_version = true
+tag_name = "{new_version}"
+message = "Bump version: {current_version} → {new_version}"
+
+[tool.bumpversion.parts.release]
+optional_value = ""
+values = [
+    "dev",
+    ""
+]
+
+[[tool.bumpversion.files]]
+filename = "src/batcontrol/__pkginfo__.py"
+search = "__version__ = \"{current_version}\""
+replace = "__version__ = \"{new_version}\""
